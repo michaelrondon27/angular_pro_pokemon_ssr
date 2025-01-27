@@ -1,5 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine, isMainModule } from '@angular/ssr/node';
+import { render } from '@netlify/angular-runtime/common-engine'
 import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -63,4 +64,8 @@ if (isMainModule(import.meta.url)) {
     app.listen(port, () => {
         console.log(`Node Express server listening on http://localhost:${port}`);
     });
+}
+
+export async function netlifyCommonEngineHandler(request: Request, context: any): Promise<Response> {
+    return await render(commonEngine)
 }
