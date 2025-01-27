@@ -13,6 +13,10 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 const app = express();
 const commonEngine = new CommonEngine();
 
+export async function netlifyCommonEngineHandler(request: Request, context: any): Promise<Response> {
+    return await render(commonEngine)
+}
+
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.
@@ -64,8 +68,4 @@ if (isMainModule(import.meta.url)) {
     app.listen(port, () => {
         console.log(`Node Express server listening on http://localhost:${port}`);
     });
-}
-
-export async function netlifyCommonEngineHandler(request: Request, context: any): Promise<Response> {
-    return await render(commonEngine)
 }
