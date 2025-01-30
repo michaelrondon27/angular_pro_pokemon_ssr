@@ -1,6 +1,5 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine, isMainModule } from '@angular/ssr/node';
-import { render } from '@netlify/angular-runtime/common-engine'
 import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,6 +11,7 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine();
+
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.
@@ -63,8 +63,4 @@ if (isMainModule(import.meta.url)) {
     app.listen(port, () => {
         console.log(`Node Express server listening on http://localhost:${port}`);
     });
-}
-
-export async function netlifyCommonEngineHandler(request: Request, context: any): Promise<Response> {
-    return await render(commonEngine)
 }
